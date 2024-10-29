@@ -630,6 +630,14 @@ local inline void putbits(struct state *s) {
         // Start a comment at column SEQCOL.
         seqtab(s);
         putc('!', s->out);
+        long bitpos = ftell(s->in)*8;
+        bitpos -= s->bitcnt;
+        int to_put = 0;
+        for (int i = 0; i < s->seqs; i++) {
+          to_put += s->len[i];
+        }
+        bitpos -= to_put;
+        fprintf(s->out, " pos %10ld:%ld  ", bitpos/8, bitpos%8);
 
         // Write the sequences in reverse order, since they were read from
         // bottom up. In each sequence, write the most to least significant
