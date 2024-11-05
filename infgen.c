@@ -1839,9 +1839,5 @@ int main(int argc, char **argv) {
     } while (ret == 0);
 
     // Done.
-    fclose(s.out);
-    fclose(s.in);
-    if ((ferror(s.in) || ferror(s.out)) && errno)
-        bail("i/o error: %s", strerror(errno));
     return ret;
 }
